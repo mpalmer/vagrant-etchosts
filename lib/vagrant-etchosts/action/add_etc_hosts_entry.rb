@@ -12,9 +12,10 @@ module VagrantPlugins::EtcHosts
 			@app.call(env)
 			
 			# Best place to find the network config?  In the SSH config.
-			addr = env[:machine].ssh_info[:host]
-			fqdn = env[:machine].config.vm.hostname
-			id   = env[:machine].id
+			addr    = env[:machine].ssh_info[:host]
+			fqdn    = env[:machine].config.vm.hostname
+			id      = env[:machine].id
+			aliases = env[:machine].config.etchosts.aliases
 			
 			if fqdn.nil?
 				fqdn = env[:machine].name.to_s
@@ -28,8 +29,8 @@ module VagrantPlugins::EtcHosts
 			begin
 				# Dump existing /etc/hosts content into our temp file
 				tmp.write(File.read(ETC_HOSTS))
-				tmp << "#{addr} #{fqdn} #{shortname}  # VAGRANT ID: #{id}\n"
-				
+				tmp << "#{addr} #{fqdn} #{shortname} #{aliases.join(' ')}  # VAGRANT ID: #{id}\n"
+
 				tmp.close
 				`sudo cp #{tmp.path} /etc/hosts`
 				`sudo pkill -HUP dnsmasq`
