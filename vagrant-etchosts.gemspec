@@ -3,11 +3,12 @@
 lib = File.expand_path('../lib', __FILE__)
 $: << File.expand_path('../lib', __FILE__)
 
-require 'vagrant-etchosts/version'
+require 'git-version-bump'
 
 Gem::Specification.new do |gem|
 	gem.name          = 'vagrant-etchosts'
-	gem.version       = VagrantPlugins::EtcHosts::VERSION
+	gem.version       = GVB.version
+	gem.date          = GVB.date
 	gem.authors       = ['Matt Palmer']
 	gem.email         = ['theshed+vagrant-etchosts@hezmatt.org']
 	gem.description   = %q{A Vagrant plugin that manages the /etc/hosts file on the host}

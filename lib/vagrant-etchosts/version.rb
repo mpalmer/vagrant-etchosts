@@ -1,9 +1,11 @@
+require 'git-version-bump'
+
 module VagrantPlugins
 	module EtcHosts
-		VERSION_MAJOR = 0
-		VERSION_MINOR = 0
-		VERSION_PATCH = 0
+		VERSION_MAJOR = GVB.major_version
+		VERSION_MINOR = GVB.minor_version
+		VERSION_PATCH = GVB.patch_version
 	
-		VERSION = "#{VERSION_MAJOR}.#{VERSION_MINOR}.#{VERSION_PATCH}"
+		VERSION = GVB.version
 	end
 end
